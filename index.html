@@ -190,9 +190,38 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
 
   var printtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
+  var   printtime = new Date();
 
       var dataFirst = [
     { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+      { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+      { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
     { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
     { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
     { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
@@ -320,10 +349,39 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
 	  var currentdate = new Date();
 	  var printtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
+	  printtime = new Date();
+
 	var newVar =  { time:printtime, unitsSold:mainPrice.toFixed(6)+"", salesman : 'PARTY COIN' };
 
 	dataFirst.shift();
+	dataFirst.shift();
+	dataFirst.shift();
+
+	newRandom = Math.random() * 4;
+
+	if(newRandom > 2) {
+		var newVar =  { time:printtime, unitsSold:mainPrice.toFixed(6) * 0.2+"", salesman : 'PARTY COIN' };
+
+
+	} else if(newRandom >1 ) {
+
+		var newVar =  { time:printtime, unitsSold:(mainPrice * 0.2).toFixed(6) * 0.2+"", salesman : 'BitCoin' };
+
+
+	} else {
+		var newVar =  { time:printtime, unitsSold:(mainPrice * 0.02).toFixed(6) +"", salesman : 'Ethereum' };
+
+	}
+
+	var newVar = { time:printtime, unitsSold:mainPrice.toFixed(6) * 0.2+"", salesman : 'PARTY COIN' };
+
+		var newVar2 =  { time:printtime, unitsSold:(mainPrice * Math.random()).toFixed(6) * 0.2+"", salesman : 'BitCoin' }
+
+		var newVar3 = 	{ time:printtime, unitsSold:(mainPrice * Math.random()).toFixed(6) +"", salesman : 'Ethereum' };
+
 	dataFirst.push(newVar);
+	dataFirst.push(newVar2);
+	dataFirst.push(newVar3);
 
 	 var parsedData = d4.parsers.nestedGroup()
     .x(function(){
@@ -359,7 +417,7 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
 
 	updatePrice();
 
-	var timingInterval = setInterval(updatePrice, 50);
+	var timingInterval = setInterval(updatePrice, 400);
 
 });
 
