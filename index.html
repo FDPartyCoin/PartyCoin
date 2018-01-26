@@ -127,6 +127,8 @@ span {
 
 <body>
 
+<div id="pie"></div>
+<div id="time_series"></div>
 
 
 <div id="conversions">
@@ -198,6 +200,109 @@ $(document).ready(function(){
   d3.select('#test')
   .datum(parsedData.data)
   .call(chart);
+
+
+  var generateData = function() {
+    var data = [];
+    var names = ['Clay Hauck', 'Diego Hickle', 'Heloise Quitzon',
+      'Hildegard Littel', 'Janiya Legros', 'Karolann Boehm',
+      'Lilyan Deckow IV', 'Lizeth Blick', 'Marlene O\'Kon', 'Marley Gutmann'
+    ],
+      pie = d3.layout.pie()
+        .sort(null)
+        .value(function(d) {
+          return d.unitsSold;
+        });
+    d4.each(names, function(name) {
+      data.push({
+        unitsSold: Math.max(10, Math.random() * 100),
+        salesman: name
+      });
+    });
+    return pie(data);
+  };
+
+  var chartTwo = d4.charts.donut()
+    .outerWidth($('#pie').width())
+    .margin({
+      left: 0,
+      top: 0,
+      right: 0,
+      bottom: 0
+    })
+    .radius(function() {
+      return this.width / 8;
+    })
+    .arcWidth(50)
+    .using('arcLabels', function(labels) {
+      labels.text(function(d) {
+        return d.data.salesman;
+      })
+    })
+    .using('arcs', function(slices) {
+      slices.key(function(d) {
+        return d.data.salesman;
+      });
+    });
+
+
+  var redraw = function() {
+    var data = generateData();
+    d3.select('#pie')
+      .datum(data)
+      .call(chartTwo);
+  };
+  (function loop() {
+    redraw();
+    setTimeout(loop, 4500);
+  })();
+
+
+    // CSV format looks like this:
+  // "Oct 27, 2009",197.37,27019700
+  var parseDate = d3.time.format('%b %e, %Y').parse;
+
+  // We'll use the D3 CSV parser, and call the renderChart function
+  // directly from it.
+  d3.csv('../../assets/data/aapl.csv')
+  .row(function(d) {
+    return {
+      date: parseDate(d.date),
+      value: +d.val,
+      volume: +d.volume,
+      symbol: 'aapl'
+    };
+  })
+  .get(function(error, rows) {
+    renderChart([{ key: 'aapl', values: rows }]);
+  }.bind(this));
+
+  var renderChart = function(data){
+    var chartThree = d4.charts.line()
+      .marginLeft(70)
+      .marginRight(70)
+      .outerWidth($('#time_series').width())
+      .x(function(x) {
+
+        // Just like other scales you can specify a min or max you just
+        // need to make sure to parse the date first.
+        x.min(parseDate('Nov 14, 2010'));
+
+        // by default d4 makes the x axis ordinal so we'll set it to time
+        // and use the date property of the data object as the key.
+        x.scale('time');
+        x.key('date');
+      })
+      .y(function(y) {
+        y
+        .key('volume');
+      });
+
+    d3.select('#time_series')
+      .datum(data)
+      .call(chartThree);
+  };
+
 
 
   	var mainPrice;
