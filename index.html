@@ -53,6 +53,8 @@
 	width:50%;
 	overflow:visible;
 	color:#FF4D4D;
+	position: fixed;
+    bottom: 0;
 }
 
 
@@ -101,7 +103,7 @@ body {
 }
 
 #mainPrice {
-	width:48%;
+	width:33%;
 	position:fixed;
 	display:block;
   top: 15%;
@@ -518,7 +520,7 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
       bottom: 0
     })
     .radius(function() {
-      return this.width / 8;
+      return this.width / 10;
     })
     .arcWidth(50)
     .using('arcLabels', function(labels) {
