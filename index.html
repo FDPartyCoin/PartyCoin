@@ -161,26 +161,38 @@ span {
 		//'use strict';
 
 $(document).ready(function(){
-  var data = [
-    { year: '2010', unitsSold:-100, salesman : 'BitCoin' },
-    { year: '2011', unitsSold:200, salesman : 'BitCoin' },
-    { year: '2012', unitsSold:300, salesman : 'BitCoin' },
-    { year: '2013', unitsSold:400, salesman : 'BitCoin' },
-    { year: '2014', unitsSold:500, salesman : 'BitCoin' },
-    { year: '2010', unitsSold:100, salesman : 'PARTY COIN' },
-    { year: '2011', unitsSold:100, salesman : 'PARTY COIN' },
-    { year: '2012', unitsSold:-100, salesman : 'PARTY COIN' },
-    { year: '2013', unitsSold:500, salesman : 'PARTY COIN' },
-    { year: '2014', unitsSold:600, salesman : 'PARTY COIN' },
-    { year: '2010', unitsSold:400, salesman : 'Ethereum' },
-    { year: '2011', unitsSold:0, salesman : 'Ethereum' },
-    { year: '2012', unitsSold:400, salesman : 'Ethereum' },
-    { year: '2013', unitsSold:400, salesman : 'Ethereum' },
-    { year: '2014', unitsSold:400, salesman : 'Ethereum' }
+
+  var currentdate = new Date();
+var datetime = "Last Sync: " + currentdate.getDate() + "/"
+                + (currentdate.getMonth()+1)  + "/"
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+
+  var printtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+
+
+  var dataFirst = [
+    { time: printtime, unitsSold:-100, salesman : 'BitCoin' },
+    { time: printtime, unitsSold:200, salesman : 'BitCoin' },
+    { time: printtime, unitsSold:300, salesman : 'BitCoin' },
+    { time: printtime, unitsSold:400, salesman : 'BitCoin' },
+    { time: printtime, unitsSold:500, salesman : 'BitCoin' },
+    { time: printtime, unitsSold:100, salesman : 'PARTY COIN' },
+    { time: printtime, unitsSold:100, salesman : 'PARTY COIN' },
+    { time: printtime, unitsSold:-100, salesman : 'PARTY COIN' },
+    { time: printtime, unitsSold:500, salesman : 'PARTY COIN' },
+    { time: printtime, unitsSold:600, salesman : 'PARTY COIN' },
+    { time: printtime, unitsSold:400, salesman : 'Ethereum' },
+    { time: printtime, unitsSold:0, salesman : 'Ethereum' },
+    { time: printtime, unitsSold:400, salesman : 'Ethereum' },
+    { time: printtime, unitsSold:400, salesman : 'Ethereum' },
+    { time: printtime, unitsSold:400, salesman : 'Ethereum' }
   ];
   var parsedData = d4.parsers.nestedGroup()
     .x(function(){
-      return 'year';
+      return 'time';
     })
     .nestKey(function(){
       return 'salesman';
@@ -190,12 +202,12 @@ $(document).ready(function(){
     })
     .value(function(){
       return 'unitsSold';
-    })(data);
+    })(dataFirst);
 
   var chart = d4.charts.line()
   .outerWidth($('#test').width())
   .x(function(x){
-    x.key('year');
+    x.key('time');
   })
   .y(function(y){
     y.key('unitsSold');
@@ -262,51 +274,6 @@ $(document).ready(function(){
   })();
 
 
-    // CSV format looks like this:
-  // "Oct 27, 2009",197.37,27019700
-  var parseDate = d3.time.format('%b %e, %Y').parse;
-
-  // We'll use the D3 CSV parser, and call the renderChart function
-  // directly from it.
-  d3.csv('../../assets/data/aapl.csv')
-  .row(function(d) {
-    return {
-      date: parseDate(d.date),
-      value: +d.val,
-      volume: +d.volume,
-      symbol: 'aapl'
-    };
-  })
-  .get(function(error, rows) {
-    renderChart([{ key: 'aapl', values: rows }]);
-  }.bind(this));
-
-  var renderChart = function(data){
-    var chartThree = d4.charts.line()
-      .marginLeft(70)
-      .marginRight(70)
-      .outerWidth($('#time_series').width())
-      .x(function(x) {
-
-        // Just like other scales you can specify a min or max you just
-        // need to make sure to parse the date first.
-        x.min(parseDate('Nov 14, 2010'));
-
-        // by default d4 makes the x axis ordinal so we'll set it to time
-        // and use the date property of the data object as the key.
-        x.scale('time');
-        x.key('date');
-      })
-      .y(function(y) {
-        y
-        .key('volume');
-      });
-
-    d3.select('#time_series')
-      .datum(data)
-      .call(chartThree);
-  };
-
 
 
   	var mainPrice;
@@ -343,7 +310,40 @@ $(document).ready(function(){
 	$("#subprice4").text( (mainPrice * 0.0003 ).toFixed(10) );
 	$("#subprice5").text( (mainPrice * 0.02 * Math.random(55)).toFixed(10) );
 
-	data.push({year: '2015', unitsSold:mainPrice.toFixed(6), salesman : 'PartyCoin'});
+
+	  var currentdate = new Date();
+	  var printtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+
+	var newVar =  { year: printtime, unitsSold:mainPrice.toFixed(6)+"", salesman : 'PARTY COIN' };
+	dataFirst.push(newVar);
+
+	 var parsedData = d4.parsers.nestedGroup()
+    .x(function(){
+      return 'time';
+    })
+    .nestKey(function(){
+      return 'salesman';
+    })
+    .y(function(){
+      return 'unitsSold';
+    })
+    .value(function(){
+      return 'unitsSold';
+    })(dataFirst);
+
+  var chart = d4.charts.line()
+  .outerWidth($('#test').width())
+  .x(function(x){
+    x.key('time');
+  })
+  .y(function(y){
+    y.key('unitsSold');
+  });
+
+  d3.select('#test')
+  .datum(parsedData.data)
+  .call(chart);
+
 
 	console.log("mainPrice = "+mainPrice);
 
@@ -351,7 +351,7 @@ $(document).ready(function(){
 
 	updatePrice();
 
-	var timingInterval = setInterval(updatePrice, 700);
+	var timingInterval = setInterval(updatePrice, 50);
 
 });
 
