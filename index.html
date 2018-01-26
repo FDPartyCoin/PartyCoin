@@ -54,12 +54,34 @@
 #test {
 	display:inline-block;
 	width:50%;
+	overflow:visible;
 	color:#FF4D4D;
 }
 
-g {
+
+g, stroke {
+  fill: #FF4D4D;
+  stroke: #FF4D4D;
+  font-family: 's_extrabold';
+  font-size:2.5rem;
+  stroke-width: 1px; /* Note: The value of a pixel depends
+                         on the view box */
+}
+
+
+marquee {
+	font-family: 's_extrabold';
+  font-size:2.5rem;
+  position:fixed;
+  bottom:10px;
+  display:block;
+  width:100%;
+  left:0;
+
 
 }
+
+
 
 body {
 	background-color: #1D1D1B;
@@ -69,19 +91,34 @@ body {
 
 #conversions {
 	width:48%;
-	display:inline-block;
+	font-size:1.4rem;
 
+	top:15px;
+	left:15px;
+		position:fixed;
+	display:block;
 }
 
 #mainPrice {
 	width:48%;
-	display:inline-block;
+	position:fixed;
+	display:block;
+	right:15px;
+	top:15px;
 	font-family: 's_extrabold';
 	font-size:4rem;
 }
 
+span {
+	font-family: 's_extrabold';
+}
 
+#graphics {
 
+	top:400px;
+	left:0px;
+
+}
 
 
 </style>
@@ -119,21 +156,21 @@ body {
 
 $(document).ready(function(){
   var data = [
-    { year: '2010', unitsSold:-100, salesman : 'Bob' },
-    { year: '2011', unitsSold:200, salesman : 'Bob' },
-    { year: '2012', unitsSold:300, salesman : 'Bob' },
-    { year: '2013', unitsSold:400, salesman : 'Bob' },
-    { year: '2014', unitsSold:500, salesman : 'Bob' },
-    { year: '2010', unitsSold:100, salesman : 'Gina' },
-    { year: '2011', unitsSold:100, salesman : 'Gina' },
-    { year: '2012', unitsSold:-100, salesman : 'Gina' },
-    { year: '2013', unitsSold:500, salesman : 'Gina' },
-    { year: '2014', unitsSold:600, salesman : 'Gina' },
-    { year: '2010', unitsSold:400, salesman : 'Average' },
-    { year: '2011', unitsSold:0, salesman : 'Average' },
-    { year: '2012', unitsSold:400, salesman : 'Average' },
-    { year: '2013', unitsSold:400, salesman : 'Average' },
-    { year: '2014', unitsSold:400, salesman : 'Average' }
+    { year: '2010', unitsSold:-100, salesman : 'BitCoin' },
+    { year: '2011', unitsSold:200, salesman : 'BitCoin' },
+    { year: '2012', unitsSold:300, salesman : 'BitCoin' },
+    { year: '2013', unitsSold:400, salesman : 'BitCoin' },
+    { year: '2014', unitsSold:500, salesman : 'BitCoin' },
+    { year: '2010', unitsSold:100, salesman : 'PARTY COIN' },
+    { year: '2011', unitsSold:100, salesman : 'PARTY COIN' },
+    { year: '2012', unitsSold:-100, salesman : 'PARTY COIN' },
+    { year: '2013', unitsSold:500, salesman : 'PARTY COIN' },
+    { year: '2014', unitsSold:600, salesman : 'PARTY COIN' },
+    { year: '2010', unitsSold:400, salesman : 'Ethereum' },
+    { year: '2011', unitsSold:0, salesman : 'Ethereum' },
+    { year: '2012', unitsSold:400, salesman : 'Ethereum' },
+    { year: '2013', unitsSold:400, salesman : 'Ethereum' },
+    { year: '2014', unitsSold:400, salesman : 'Ethereum' }
   ];
   var parsedData = d4.parsers.nestedGroup()
     .x(function(){
@@ -197,6 +234,7 @@ $(document).ready(function(){
 	$("#subprice4").text( (mainPrice * 0.0003 ).toFixed(10) );
 	$("#subprice5").text( (mainPrice * 0.02 * Math.random(55)).toFixed(10) );
 
+	data.push({year: '2015', unitsSold:mainPrice.toFixed(6), salesman : 'PartyCoin'});
 
 	console.log("mainPrice = "+mainPrice);
 
