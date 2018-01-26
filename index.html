@@ -162,6 +162,24 @@ span {
 
 $(document).ready(function(){
 
+
+  	var mainPrice;
+	var rateOfIncrease;
+
+	var marketDirection;
+	var volatility;
+
+	function setInitPrices () {
+
+		mainPrice = 15;
+		rateOfIncrease = 1;
+		marketDirection = 1;
+		volatility = 2;
+	};
+
+	setInitPrices();
+
+
   var currentdate = new Date();
 var datetime = "Last Sync: " + currentdate.getDate() + "/"
                 + (currentdate.getMonth()+1)  + "/"
@@ -173,24 +191,26 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
   var printtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
 
-  var dataFirst = [
-    { time: printtime, unitsSold:-100, salesman : 'BitCoin' },
-    { time: printtime, unitsSold:200, salesman : 'BitCoin' },
-    { time: printtime, unitsSold:300, salesman : 'BitCoin' },
-    { time: printtime, unitsSold:400, salesman : 'BitCoin' },
-    { time: printtime, unitsSold:500, salesman : 'BitCoin' },
-    { time: printtime, unitsSold:100, salesman : 'PARTY COIN' },
-    { time: printtime, unitsSold:100, salesman : 'PARTY COIN' },
-    { time: printtime, unitsSold:-100, salesman : 'PARTY COIN' },
-    { time: printtime, unitsSold:500, salesman : 'PARTY COIN' },
-    { time: printtime, unitsSold:600, salesman : 'PARTY COIN' },
-    { time: printtime, unitsSold:400, salesman : 'Ethereum' },
-    { time: printtime, unitsSold:0, salesman : 'Ethereum' },
-    { time: printtime, unitsSold:400, salesman : 'Ethereum' },
-    { time: printtime, unitsSold:400, salesman : 'Ethereum' },
-    { time: printtime, unitsSold:400, salesman : 'Ethereum' }
+      var dataFirst = [
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'BitCoin' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'PARTY COIN' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' },
+    { time: printtime,unitsSold:Math.random(mainPrice*1.5), salesman : 'Ethereum' }
   ];
-  var parsedData = d4.parsers.nestedGroup()
+
+
+    var parsedData = d4.parsers.nestedGroup()
     .x(function(){
       return 'time';
     })
@@ -276,21 +296,6 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
 
 
 
-  	var mainPrice;
-	var rateOfIncrease;
-
-	var marketDirection;
-	var volatility;
-
-	function setInitPrices () {
-
-		mainPrice = 15;
-		rateOfIncrease = 1;
-		marketDirection = 1;
-		volatility = 2;
-	};
-
-	setInitPrices();
 
 
 	function updatePrice(){
@@ -301,6 +306,7 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
 		updateGraphics();
 
 	};
+
 	function updateGraphics() {
 
 	$("#mainPrice").text(mainPrice.toFixed(6));
@@ -314,7 +320,9 @@ var datetime = "Last Sync: " + currentdate.getDate() + "/"
 	  var currentdate = new Date();
 	  var printtime = currentdate.getHours() + ":" + currentdate.getMinutes() + ":" + currentdate.getSeconds();
 
-	var newVar =  { year: printtime, unitsSold:mainPrice.toFixed(6)+"", salesman : 'PARTY COIN' };
+	var newVar =  { time:printtime, unitsSold:mainPrice.toFixed(6)+"", salesman : 'PARTY COIN' };
+
+	datafirst.shift();
 	dataFirst.push(newVar);
 
 	 var parsedData = d4.parsers.nestedGroup()
