@@ -5,7 +5,6 @@
 
  <link href="d4.css" rel="stylesheet" />
 
-
 <script src="jquery.js"></script>
 <script src="d3.v3.min.js"></script>
 <script src="d4.min.js"></script>
@@ -107,12 +106,22 @@ body {
 	width:48%;
 	position:fixed;
 	display:block;
-	right:15px;
-	top:15px;
+  top: 15%;
+  right: 5%;
+  margin: 0 auto;
 	font-family: 's_extrabold';
 	font-size:4rem;
 }
 
+
+#priceCaption{
+  position:fixed;
+  top: 0%;
+  right: 5%;
+  font-family: 's_extrabold';
+	font-size:2.5rem;
+  width:33%;
+}
 span {
 	font-family: 's_extrabold';
 }
@@ -125,6 +134,14 @@ span {
 }
 
 
+#pie{
+  height: 100vh;
+  position: relative;
+}
+
+#pie svg{
+  height: inherit;
+}
 </style>
 
 </head>
@@ -147,7 +164,7 @@ span {
 </div>
 
 
-
+<div id="priceCaption"> Fully Distributed Party Coin Value: </div>
 <div id="mainPrice">InitPrice</div>
 <div id="test"></div>
 
